@@ -10,7 +10,7 @@ import './App.css';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 0,
-    width: '50%',
+    width: '100%',
   },
   title: {
     flexGrow: 0, 

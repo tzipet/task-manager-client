@@ -24,10 +24,7 @@ export default function AddButton() {
     const classes = useStyles()
 
     return (
-       <div className={classes.cont}> 
-        <Fab size='small' color="primary" aria-label="add" className={classes.fab}>
-        <AddIcon />
-        </Fab>
+       <div className={classes.cont}>
         <TextField
             className={classes.text}
              id="standard-with-placeholder"

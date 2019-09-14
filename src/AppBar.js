@@ -12,8 +12,8 @@ import './App.css';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 0,
-    width: '50%',
-    // height: '30px'
+    width: '100%',
+    
   },
   title: {
 
@@ -61,6 +61,7 @@ export default function ButtonAppBar() {
     localStorage.setItem('user', JSON.stringify(data.user))
     localStorage.setItem('token', data.token)
 
+    localStorage.getItem('token')
 
     setLoading(false)
     handleClose()
@@ -68,13 +69,17 @@ export default function ButtonAppBar() {
 
   return (
     <div className={classes.root}>
+      <SignIn open={open} onClose={handleClose} onSubmit={handleSubmit} />
+
       <AppBar color='primary' className={classes.bar} position="static">
         <Toolbar className={classes.appBar}>
           <Typography variant="h6" className={classes.title}>
             Task Manager 
           </Typography>
+          <div>
           <Button className={classes.button} onClick={handleOpen} color="inherit">Login</Button>
-          <SignIn open={open} onClose={handleClose} onSubmit={handleSubmit} />
+          <Button className={classes.button} color='inherit'>Sign Up</Button>
+          </div>
         </Toolbar>
       </AppBar>
     </div>
