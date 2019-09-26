@@ -6,24 +6,22 @@ import DivideLine from './Divider.js'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
+    flex: 'auto',
     width: '100%',
-    justifyContent: 'center',
     flexDirection: 'row',
-    flexWrap: 'nowrap',
-    
-    
+    overflow: 'auto',
+    // flexWrap: 'nowrap',
+    alignItems: 'stretch'
   },
-  grids: {
-      width: '30%',
-      backgroundColor: '#e5f4f3',
-      color: 'black',
-      
-      
+  gridList: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    color: 'black',
+    height: '100%'
   },
-  grids1: {
-    width: '70%',
-    backgroundColor: '#e5f4f3',
+  gridDetails: {
+    flex: 2,
+    backgroundColor: '#fafafa',
     color: 'black',
   }
 }));
@@ -34,11 +32,11 @@ export default function SpacingGrid() {
   return (
     <Grid container className={classes.root} >
       
-        <Grid className={classes.grids}>
+        <Grid item className={classes.gridList}>
           <TaskList />
         </Grid>
         <DivideLine/>
-        <Grid className={classes.grids1}>
+        <Grid item className={classes.gridDetails}>
          
         </Grid>
       

@@ -9,14 +9,32 @@ import TextField from '@material-ui/core/TextField';
 const useStyles = makeStyles(theme => ({
     cont: {
         display: 'flex',
-        flexDirection: 'column',
-        marginTop: '16px',
-        marginLeft: '4px',
-        justifyContent: 'center'
+        flexDirection: 'row',
+        paddingBottom: '24px',
+        // paddingLeft: '4px',
+        justifyContent: 'space-between',
+        backgroundColor: '#e0e0e0',
+        width: "100%",
+        alignItems: 'center',
+        felxGrow: 1
+       
+        
     },
-    text: {
-        marginTop: '0px'
+    fab: {
+        marginTop: theme.spacing(2),
+        marginRight: theme.spacing(2),
+        width: '100%',
+    },
+
+
+    textField: {
+        marginLeft: theme.spacing(3),
+        marginTop: 0,
+        marginBottom: 0,
+        flexGrow: 1
+
     }
+   
   }));
 
 
@@ -25,15 +43,25 @@ export default function AddButton() {
 
     return (
        <div className={classes.cont}>
-        <TextField
-            className={classes.text}
-             id="standard-with-placeholder"
-             label="Type your task and press the add Button"
-             placeholder="Type here..."
-             margin="normal"
-             width='100%'
-            >
-        </TextField>
+            <TextField
+        id="standard-multiline-flexible"
+        label="Add a task"
+        
+        rowsMax="4" 
+        className={classes.textField}
+        margin="normal"
+      />
+           <Fab
+          variant="extended"
+          size="small"
+          color="primary"
+          aria-label="add"
+          className={classes.fab}
+        >
+          <AddIcon  />
+          Add
+        </Fab>
       </div>
     )
 }
+

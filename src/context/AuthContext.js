@@ -2,11 +2,19 @@ import React, { Component, createContext } from 'react'
 
 export const AuthContext = createContext()
 
-class AuthContainer extends Component {
+class AuthContextProvider extends Component {
     state = {
-        user: user,
-        tasks: tasks,
+        isValidated: false,
+        user: localStorage.getItem('user'),
+        token: localStorage.getItem('token')
     }
+
+    const isValidated = () => {
+        if (token) {
+            isValidated = true
+        }
+    }
+    
 
     render() {
 
@@ -19,4 +27,4 @@ class AuthContainer extends Component {
     }
 }
 
-export default AuthContainer
+export default AuthContextProvider

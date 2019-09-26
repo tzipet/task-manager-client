@@ -9,8 +9,11 @@ import './App.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 0,
+    
     width: '100%',
+    // psition: 'fixed',
+    // bottom: '0',
+    display: 'flex'
   },
   title: {
     flexGrow: 0, 

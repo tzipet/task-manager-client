@@ -5,26 +5,36 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import SignIn from './LoginForm.js'
+import LoadingSpinner from './Spinner.js'
 import './App.css';
 
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 0,
+    // flexGrow: 0,
     width: '100%',
-    
-  },
-  title: {
 
-    
   },
   appBar: {
       justifyContent: 'space-between'
   },
-
-  button: {
-
+  spinnerContainer: {
+    position: 'fixed',
+    left: '50%',
+    top: '50%',
+    width: 144,
+    height: 144,
+    marginTop: -72,
+    marginLeft: -72,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.8)',
+    borderRadius: 8,
+    color: 'white',
+    zIndex: 1500
   }
 }));
 
@@ -42,6 +52,8 @@ export default function ButtonAppBar() {
     setOpen(false)
   }
 
+ 
+
   const handleSubmit = async (credentials) => {
     setLoading(true)
 
@@ -52,24 +64,33 @@ export default function ButtonAppBar() {
       body,
       headers: new Headers({'content-type': 'application/json'})
     })
-    console.log(response)
+   
+    
     
 
     const data = await response.json()
-    console.log(data)
+    
 
     localStorage.setItem('user', JSON.stringify(data.user))
     localStorage.setItem('token', data.token)
 
-    localStorage.getItem('token')
+  
 
     setLoading(false)
     handleClose()
   }
 
+
+
   return (
     <div className={classes.root}>
-      <SignIn open={open} onClose={handleClose} onSubmit={handleSubmit} />
+      <SignIn open={open} onClose={handleClose} onSubmit={handleSubmit}/>
+
+      {loading && (
+        <div className={classes.spinnerContainer}>
+          <LoadingSpinner />
+        </div>
+      )}
 
       <AppBar color='primary' className={classes.bar} position="static">
         <Toolbar className={classes.appBar}>

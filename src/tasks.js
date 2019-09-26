@@ -27,7 +27,48 @@ const tasks = [
         owner: '',
         timestamps: '15/09/2019'
     },
-    
+    {
+        id: '1237',
+        description: 'Call friends',
+        completed: false,
+        owner: '',
+        timestamps: '15/09/2019'
+    },
+    {
+        id: '1237',
+        description: 'Call friends',
+        completed: false,
+        owner: '',
+        timestamps: '15/09/2019'
+    },
+    {
+        id: '1237',
+        description: 'Call friends',
+        completed: false,
+        owner: '',
+        timestamps: '15/09/2019'
+    },
+    {
+        id: '1237',
+        description: 'Call friends',
+        completed: false,
+        owner: '',
+        timestamps: '15/09/2019'
+    },
+    {
+        id: '1237',
+        description: 'Call friends',
+        completed: false,
+        owner: '',
+        timestamps: '15/09/2019'
+    },
+      {
+        id: '1237',
+        description: 'Call friends',
+        completed: false,
+        owner: '',
+        timestamps: '15/09/2019'
+    },
 ]
 
 export default tasks

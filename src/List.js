@@ -12,23 +12,47 @@ import tasks from './tasks.js'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: '100%',    
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%', 
+    // height: 'calc(100vh - 2 * 64px)',
+    justifyContent: 'space-between',
+    height: '100%',
+    
+    
   },
   listItemLinkRoot: {
     paddingLeft: theme.spacing(3),
-    secondaryTypographyProps: {
-      color: 'white'
-    },
+    width: '100%',
     '&:hover': {
-      borderLeftStyle: 'solid',
-      borderColor: '#212121',
       backgroundColor: "#212121",
       color: 'white',
-    
     },
   },
+
+  buttonContainer: {
+    display: 'flex',
+    width: '100%',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    // height: '100%',
+    // position: 'fixed',
+    // left: 0,
+    // bottom: 64
+
+  },
+
+  list: {
+    // height: '100%',
+    // display: 'block',
+    flexGrow: 1,
+    overflow: 'auto'
+    
+  }
  
 }));
+
+
 
 function ListItemLink(props) {
   return <ListItem button component="a" {...props} />;
@@ -40,18 +64,17 @@ export default function TaskList() {
   return (
     <div className={classes.root}>
      
-        <List className={classes.list} component="nav">
+        <List classes={{ root: classes.list}} >
           {tasks.map(task => (
           <ListItemLink divider key={task.id} classes={{ root: classes.listItemLinkRoot }} href="simple-list">
-           
             <ListItemText primary={task.description} secondary={task.timestamps} />
           </ListItemLink>
-           
             ))}
-            {/* <AddButton className={classes.add}/> */}
-           
         </List>
-      
+        <div className={classes.buttonContainer}>
+        <AddButton classes={{ root: classes.add }}/>
+        </div>
+        
     </div>
   );
 }
