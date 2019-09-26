@@ -5,42 +5,28 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import './App.css';
 
-
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
-    
     width: '100%',
-    // psition: 'fixed',
-    // bottom: '0',
-    display: 'flex'
+    display: 'flex',
   },
   title: {
-    flexGrow: 0, 
- 
+    flexGrow: 0,
   },
   foot: {
-      justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
 }));
-
-
-
 
 export default function FooterComp() {
   const classes = useStyles();
 
-
   return (
     <div className={classes.root}>
-      <AppBar color='primary' className={classes.footbar} position="static">
+      <AppBar color="primary" className={classes.footbar} position="static">
         <Toolbar className={classes.foot}>
-          <Typography className={classes.title}>
-            Copyright 2019 
-          </Typography>
-          <Typography className={classes.title}>
-            tzipet 
-          </Typography>
+          <Typography className={classes.title}>Copyright 2019</Typography>
+          <Typography className={classes.title}>tzipet</Typography>
         </Toolbar>
       </AppBar>
     </div>

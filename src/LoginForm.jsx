@@ -6,26 +6,25 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-
-export default function SignIn({ open, onClose, onSubmit }) {  
+export default function SignIn({ open, onClose, onSubmit }) {
   const [credentials, setCredentials] = useState({
     email: '',
-    password: ''
-  })
+    password: '',
+  });
 
-  const handleChange = (ev) => {
-    setCredentials({ ...credentials, [ev.target.id]: ev.target.value })
-  }
+  const handleChange = ev => {
+    setCredentials({ ...credentials, [ev.target.id]: ev.target.value });
+  };
 
-  const handleSubmit = (ev) => {
-    onSubmit(credentials)
-  }
+  const handleSubmit = () => {
+    onSubmit(credentials);
+  };
 
   return (
     <div>
       <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Login</DialogTitle>
-        <DialogContent >
+        <DialogContent>
           <TextField
             onChange={handleChange}
             autoFocus
@@ -36,7 +35,7 @@ export default function SignIn({ open, onClose, onSubmit }) {
             margin="normal"
             variant="outlined"
           />
-           <TextField
+          <TextField
             onChange={handleChange}
             id="password"
             label="Password"
@@ -44,7 +43,7 @@ export default function SignIn({ open, onClose, onSubmit }) {
             autoComplete="current-password"
             margin="normal"
             variant="outlined"
-      />
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">

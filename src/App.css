@@ -1,26 +1,19 @@
 .App {
   text-align: center;
-    
 }
 
 .App-header {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  /* justify-content: center; */
   font-size: calc(10px + 2vmin);
   color: white;
-  /* height: 100vh */
 }
 
 .App-link {
   color: #61dafb;
 }
 
-
 .Divideline {
-  color: 013434
-
+  color: 013434;
 }
-
