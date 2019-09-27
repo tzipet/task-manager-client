@@ -12,7 +12,6 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    // height: 'calc(100vh - 2 * 64px)',
     justifyContent: 'space-between',
     height: '100%',
   },

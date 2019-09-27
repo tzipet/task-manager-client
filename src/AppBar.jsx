@@ -6,12 +6,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import SignIn from './LoginForm';
+import SignUp from './RegisterForm';
 import LoadingSpinner from './Spinner';
 import './App.css';
 
 const useStyles = makeStyles(() => ({
   root: {
-    // flexGrow: 0,
     width: '100%',
   },
   appBar: {
@@ -40,6 +40,7 @@ export default function ButtonAppBar() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [openRegister, setOpenRegister] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -49,6 +50,15 @@ export default function ButtonAppBar() {
     setOpen(false);
   };
 
+  const handleOpenRegister = () => {
+    setOpenRegister(true);
+  };
+
+  const handleCloseRegister = () => {
+    setOpenRegister(false);
+  };
+
+  // Login handling
   const handleSubmit = async credentials => {
     setLoading(true);
 
@@ -72,9 +82,39 @@ export default function ButtonAppBar() {
     handleClose();
   };
 
+  // Registration handling
+  const handleSubmitRegister = async credentialsRegister => {
+    setLoading(true);
+
+    const body = JSON.stringify(credentialsRegister);
+
+    const response = await fetch(
+      'https://tzipet-task-manager-server.herokuapp.com/users/',
+      {
+        method: 'POST',
+        body,
+        headers: new Headers({ 'content-type': 'application/json' }),
+      },
+    );
+
+    const data = await response.json();
+
+    localStorage.setItem('user', JSON.stringify(data.user));
+    localStorage.setItem('token', data.token);
+
+    setLoading(false);
+    handleCloseRegister();
+  };
+
   return (
     <div className={classes.root}>
       <SignIn open={open} onClose={handleClose} onSubmit={handleSubmit} />
+
+      <SignUp
+        open={openRegister}
+        onClose={handleCloseRegister}
+        onSubmit={handleSubmitRegister}
+      />
 
       {loading && (
         <div className={classes.spinnerContainer}>
@@ -95,7 +135,11 @@ export default function ButtonAppBar() {
             >
               Login
             </Button>
-            <Button className={classes.button} color="inherit">
+            <Button
+              className={classes.button}
+              onClick={handleOpenRegister}
+              color="inherit"
+            >
               Sign Up
             </Button>
           </div>
