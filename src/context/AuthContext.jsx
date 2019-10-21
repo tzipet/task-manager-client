@@ -1,4 +1,4 @@
-/* global localStorage */
+/* global localStorage, console */
 import React, { createContext, useState } from 'react';
 
 export const AuthContext = createContext();

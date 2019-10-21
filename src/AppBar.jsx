@@ -133,7 +133,9 @@ export default function ButtonAppBar() {
           </Typography>
           {user ? (
             <div className={classes.authContainer}>
-              <Button color="inherit">Welcome {user.name}</Button>
+              <Typography color="inherit">
+                Welcome {user.name.charAt(0).toUpperCase() + user.name.slice(1)}
+              </Typography>
             </div>
           ) : (
             <div>
