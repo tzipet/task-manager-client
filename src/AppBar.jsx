@@ -1,5 +1,5 @@
-/* global fetch, localStorage, Headers */
-import React, { useState } from 'react';
+/* global fetch, Headers */
+import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,6 +9,7 @@ import SignIn from './LoginForm';
 import SignUp from './RegisterForm';
 import LoadingSpinner from './Spinner';
 import './App.css';
+import { AuthContext } from './context/AuthContext';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -38,9 +39,13 @@ const useStyles = makeStyles(() => ({
 
 export default function ButtonAppBar() {
   const classes = useStyles();
+  const { updateAuth } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
+
+  // console.log(user.name);
 
   const handleOpen = () => {
     setOpen(true);
@@ -75,8 +80,8 @@ export default function ButtonAppBar() {
 
     const data = await response.json();
 
-    localStorage.setItem('user', JSON.stringify(data.user));
-    localStorage.setItem('token', data.token);
+    // Success - New user object! data.user, data.token
+    updateAuth(data);
 
     setLoading(false);
     handleClose();
@@ -99,8 +104,7 @@ export default function ButtonAppBar() {
 
     const data = await response.json();
 
-    localStorage.setItem('user', JSON.stringify(data.user));
-    localStorage.setItem('token', data.token);
+    updateAuth(data);
 
     setLoading(false);
     handleCloseRegister();
@@ -127,22 +131,28 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             Task Manager
           </Typography>
-          <div>
-            <Button
-              className={classes.button}
-              onClick={handleOpen}
-              color="inherit"
-            >
-              Login
-            </Button>
-            <Button
-              className={classes.button}
-              onClick={handleOpenRegister}
-              color="inherit"
-            >
-              Sign Up
-            </Button>
-          </div>
+          {user ? (
+            <div className={classes.authContainer}>
+              <Button color="inherit">Welcome {user.name}</Button>
+            </div>
+          ) : (
+            <div>
+              <Button
+                className={classes.button}
+                onClick={handleOpen}
+                color="inherit"
+              >
+                Login
+              </Button>
+              <Button
+                className={classes.button}
+                onClick={handleOpenRegister}
+                color="inherit"
+              >
+                Sign Up
+              </Button>
+            </div>
+          )}
         </Toolbar>
       </AppBar>
     </div>

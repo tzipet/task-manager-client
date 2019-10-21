@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -11,11 +11,9 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: '24px',
     justifyContent: 'space-between',
     backgroundColor: '#e0e0e0',
-    width: "100%",
+    width: '100%',
     alignItems: 'center',
-    felxGrow: 1
-
-
+    felxGrow: 1,
   },
   fab: {
     marginTop: theme.spacing(2),
@@ -23,32 +21,41 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
   },
 
-
   textField: {
     marginLeft: theme.spacing(3),
     marginTop: 0,
     marginBottom: 0,
-    flexGrow: 1
-
-  }
-
+    flexGrow: 1,
+  },
 }));
 
+export default function AddButton(onSubmit) {
+  const classes = useStyles();
+  const [task, setTask] = useState({
+    taskName: '',
+  });
 
-export default function AddButton() {
-  const classes = useStyles()
+  const handleChange = e => {
+    setTask({ ...task, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    onSubmit(task);
+  };
+
 
   return (
     <div className={classes.cont}>
       <TextField
+        onChange={handleChange}
         id="standard-multiline-flexible"
         label="Add a task"
-
         rowsMax="4"
         className={classes.textField}
         margin="normal"
       />
       <Fab
+        onSubmit={handleSubmit}
         variant="extended"
         size="small"
         color="primary"
@@ -59,6 +66,5 @@ export default function AddButton() {
         Add
       </Fab>
     </div>
-  )
+  );
 }
-

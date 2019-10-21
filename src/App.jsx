@@ -5,6 +5,7 @@ import './App.css';
 import ButtonAppBar from './AppBar';
 import SpacingGrid from './Grids';
 import FooterComp from './Footer';
+import AuthProvider from './context/AuthContext';
 
 const theme = createMuiTheme({
   palette: {
@@ -21,11 +22,13 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <header className="App-header">
-          <ButtonAppBar />
-          <SpacingGrid />
-          <FooterComp />
-        </header>
+        <AuthProvider>
+          <header className="App-header">
+            <ButtonAppBar />
+            <SpacingGrid />
+            <FooterComp />
+          </header>
+        </AuthProvider>
       </ThemeProvider>
     </div>
   );
