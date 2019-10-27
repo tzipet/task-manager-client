@@ -3,19 +3,6 @@ import React, { createContext, useState } from 'react';
 
 export const AuthContext = createContext();
 
-// class AuthContextProvider extends Component {
-//   state = {
-//     isValidated: false,
-//     user: localStorage.getItem('user'),
-//     token: localStorage.getItem('token'),
-//   };
-
-//   const isValidated = () => {
-//       if (token) {
-//           isValidated = true
-//       }
-//   }
-
 const AuthContextProvider = ({ children }) => {
   let userData;
 
@@ -39,7 +26,9 @@ const AuthContextProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user: auth.user, updateAuth }}>
+    <AuthContext.Provider
+      value={{ user: auth.user, token: auth.token, updateAuth }}
+    >
       {children}
     </AuthContext.Provider>
   );

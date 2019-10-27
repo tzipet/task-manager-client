@@ -34,7 +34,7 @@ export default function SpacingGrid() {
         <TaskList />
       </Grid>
       <DivideLine />
-      <Grid item className={classes.gridDetails} />
+      <Grid item className={classes.gridDetails}></Grid>
     </Grid>
   );
 }
