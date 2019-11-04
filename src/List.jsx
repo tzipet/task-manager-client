@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -8,6 +8,7 @@ import { getTasks } from './services/getTasks';
 import { addTask } from './services/postTask';
 import AddButton from './AddButton';
 import LoadingSpinner from './Spinner';
+import { AuthContext } from './context/AuthContext';
 import './App.css';
 
 const useStyles = makeStyles(theme => ({
@@ -16,6 +17,14 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     width: '100%',
     justifyContent: 'space-between',
+    height: '100%',
+    fontSize: '16px',
+  },
+  noUser: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    justifyContent: 'center',
     height: '100%',
     fontSize: '16px',
   },
@@ -73,6 +82,7 @@ function ListItemLink(props) {
 
 export default function TaskList() {
   const classes = useStyles();
+  const { user } = useContext(AuthContext);
   const [tasks, setTasks] = useState([]);
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -86,7 +96,7 @@ export default function TaskList() {
     };
 
     fetchData();
-  }, [update]);
+  }, [update, user]);
 
   const handleSubmit = task => {
     setLoading(true);
@@ -102,33 +112,43 @@ export default function TaskList() {
           <LoadingSpinner />
         </div>
       )}
-      <List classes={{ root: classes.list }}>
-        {tasks.map(task => (
-          <ListItemLink
-            divider
-            key={task.id}
-            classes={{ root: classes.listItemLinkRoot }}
-            href="simple-list"
-          >
-            <ListItemText
-              classes={{ root: classes.listItemText }}
-              primary={task.description}
+      {/* // Customise when there is no logged user and user's tasks */}
+      {!tasks.length ? (
+        <div className={classes.noUser}>
+          <p>Welcome to the task manager App </p>
+          <p>Please Login or Sign up to add tasks</p>
+        </div>
+      ) : (
+        <div className={classes.root}>
+          <List classes={{ root: classes.list }}>
+            {tasks.map(task => (
+              <ListItemLink
+                divider
+                key={task.id}
+                classes={{ root: classes.listItemLinkRoot }}
+                href="simple-list"
+              >
+                <ListItemText
+                  classes={{ root: classes.listItemText }}
+                  primary={task.description}
+                />
+                <Moment
+                  classes={{ root: classes.listItemDate }}
+                  format="DD/MM/YYYY"
+                >
+                  {task.createdAt}
+                </Moment>
+              </ListItemLink>
+            ))}
+          </List>
+          <div className={classes.buttonContainer}>
+            <AddButton
+              classes={{ root: classes.add }}
+              handleSubmit={handleSubmit}
             />
-            <Moment
-              classes={{ root: classes.listItemDate }}
-              format="DD/MM/YYYY"
-            >
-              {task.createdAt}
-            </Moment>
-          </ListItemLink>
-        ))}
-      </List>
-      <div className={classes.buttonContainer}>
-        <AddButton
-          classes={{ root: classes.add }}
-          handleSubmit={handleSubmit}
-        />
-      </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
