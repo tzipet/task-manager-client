@@ -115,7 +115,7 @@ export default function TaskList() {
       {/* // Customise when there is no logged user and user's tasks */}
       {!tasks.length ? (
         <div className={classes.noUser}>
-          <p>Welcome to the task manager App </p>
+          <p>Welcome to the Task Manager App </p>
           <p>Please Login or Sign up to add tasks</p>
         </div>
       ) : (
