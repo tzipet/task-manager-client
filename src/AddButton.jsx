@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
+import { addTask } from './services/postTask';
 
 const useStyles = makeStyles(theme => ({
   cont: {
@@ -29,33 +30,33 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function AddButton(onSubmit) {
+export default function AddButton({ handleSubmit }) {
   const classes = useStyles();
   const [task, setTask] = useState({
-    taskName: '',
+    description: '',
+    completed: false,
   });
 
-  const handleChange = e => {
-    setTask({ ...task, [e.target.id]: e.target.value });
+  const handleChange = ev => {
+    setTask({ ...task, [ev.target.id]: ev.target.value });
   };
 
-  const handleSubmit = () => {
-    onSubmit(task);
+  const onSubmit = () => {
+    handleSubmit(task);
   };
-
 
   return (
     <div className={classes.cont}>
       <TextField
         onChange={handleChange}
-        id="standard-multiline-flexible"
+        id="description"
         label="Add a task"
         rowsMax="4"
         className={classes.textField}
         margin="normal"
       />
       <Fab
-        onSubmit={handleSubmit}
+        onClick={onSubmit}
         variant="extended"
         size="small"
         color="primary"

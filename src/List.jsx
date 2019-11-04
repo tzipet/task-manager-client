@@ -5,7 +5,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Moment from 'react-moment';
 import { getTasks } from './services/getTasks';
+import { addTask } from './services/postTask';
 import AddButton from './AddButton';
+import LoadingSpinner from './Spinner';
 import './App.css';
 
 const useStyles = makeStyles(theme => ({
@@ -45,6 +47,24 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 8,
     // fontSize: 20,
   },
+
+  spinnerContainer: {
+    position: 'fixed',
+    left: '50%',
+    top: '50%',
+    width: 144,
+    height: 144,
+    marginTop: -72,
+    marginLeft: -72,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.8)',
+    borderRadius: 8,
+    color: 'white',
+    zIndex: 1500,
+  },
 }));
 
 function ListItemLink(props) {
@@ -54,19 +74,34 @@ function ListItemLink(props) {
 export default function TaskList() {
   const classes = useStyles();
   const [tasks, setTasks] = useState([]);
+  const [update, setUpdate] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const result = await getTasks();
-      // console.log(result);
       setTasks(result);
+      setLoading(false);
     };
 
     fetchData();
-  }, []);
+  }, [update]);
+
+  const handleSubmit = task => {
+    setLoading(true);
+    addTask(task);
+    setUpdate(true);
+    setLoading(false);
+  };
 
   return (
     <div className={classes.root}>
+      {loading && (
+        <div className={classes.spinnerContainer}>
+          <LoadingSpinner />
+        </div>
+      )}
       <List classes={{ root: classes.list }}>
         {tasks.map(task => (
           <ListItemLink
@@ -89,7 +124,10 @@ export default function TaskList() {
         ))}
       </List>
       <div className={classes.buttonContainer}>
-        <AddButton classes={{ root: classes.add }} />
+        <AddButton
+          classes={{ root: classes.add }}
+          handleSubmit={handleSubmit}
+        />
       </div>
     </div>
   );
